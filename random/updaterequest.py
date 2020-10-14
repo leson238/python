@@ -12,9 +12,9 @@ import datetime
 # All the parameters like the ServerName , protocol , portnumber and Technician API key that are used in the Script are Input here.Please update this based on your Environment.
 
 # Update this link with the protocol and servername:portnumber values of the ServiceDesk Plus application.
-appUrl = "seocd5-hcm.supercloud.vn:3046"
+appUrl = ""
 # Replace 374C0176-A6BF-4CDC-8E05-9731F66FAE71 with a Technician's API key.
-TechnicianKey = '09DC84A8-37ED-4496-8F4F-25CE9B9214EC'
+TechnicianKey = ''
 resultjson = {}
 url = ""
 # File containing request details will be stored as json object and the file path will be passed as argument to the script replacing the $COMPLETE_JSON_FILE argument
