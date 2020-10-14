@@ -1,0 +1,119 @@
+
+#Q1
+blank = ' '
+board = [[blank] * 20 for i in range(20)]
+
+
+def printboard(board):
+    x = '0123456789'
+    y = len(board[0]) % 10
+    topline = x * (len(board[0]) // 10)
+    if y != 0:
+        for i in range(y):
+            topline = topline + x[i]
+    secondline = '_' * len(topline)
+    print(' ', topline)
+    print(' ', secondline)
+    for i in range(len(board)):
+        print('|', ''.join(board[i]), '|', i)
+    print(' ', secondline)
+    print(' ', topline)
+
+
+#Q2
+def firstword(board, word) :
+    D = len(board)
+    n = len(word)
+    if n > D :
+        return False
+    for k in range(n) :
+        column = D // 2 - n // 2 + k
+        board[D // 2] [column] = word[k]
+    return True
+
+
+#Q3
+def checkvertical(board, word, row, col):
+    D = len(board)
+    n = len(word)
+    blank = ' '
+    if n > D - row:
+        print('word is too long to fit start at row', row)
+        return False
+    matchesoneletter = False
+    for k in range(n):
+        wordletter = word[k]
+        boardletter = board[row+k][col]
+        if boardletter == blank:
+            continue
+        if boardletter != blank:
+            if boardletter == wordletter:
+                matchesoneletter = True
+            else:
+                return matchesoneletter
+    return matchesoneletter
+
+
+#Q4
+def addvertical(board,word):
+    n = len(word)
+    D = len(board)
+    for i in range(D-n):
+        for j in range(D):
+            if checkvertical(board, word, i, j):
+                for k in range(n):
+                    board[i+k][j] = word[k]
+                return True
+    return False
+
+
+#Q5
+def checkhorizontal(board,word,row,col):
+    D = len(board)
+    n = len(word)
+    blank = ' '
+    if n > D - col:
+        print('word is too long to fit start at col', col)
+        return False
+    matchesoneletter = False
+    for k in range(n):
+        wordletter = word[k]
+        boardletter = board[row][col+k]
+        if boardletter == blank:
+            continue
+        if boardletter != blank:
+            if boardletter == wordletter:
+                matchesoneletter = True
+            else:
+                return matchesoneletter 
+    return matchesoneletter
+
+def addhorizontal(board,word):
+    n = len(word)
+    D = len(board)
+    for i in range(D):
+        for j in range(D-n):
+            if checkhorizontal(board, word, i, j):
+                for k in range(n):
+                    board[i][j+k] = word[k]
+                return True
+    return False
+
+
+
+#q6
+def addwords(board,L):
+    firstword(board,L.pop(0))
+    vertical = True
+    while len(L) > 0:
+        nextword = L.pop(0)
+        if vertical:
+            addvertical(board,nextword)
+            vertical = False
+        else:
+            addhorizontal(board,nextword)
+            vertical = True
+    printboard(board)
+
+L = ['hippopotamus', 'horse', 'loon', 'snake', 'rat', 'rattlesnake', 'dinosaur']
+addwords(board,L)
